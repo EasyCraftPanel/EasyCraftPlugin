@@ -69,6 +69,12 @@ namespace EasyCraftPlugin
         {
             FastConsole.PrintInfo("监听到服务器开启事件: "+sid+" Path:"+p.StartInfo.FileName);
             //你在此处可以修改Process相关配置
+            //你也可以通过sid获取服务器的信息
+            Server s = new Server(sid);
+            if (!s.isnull)
+            {//请务必检查一下,防止报错发生
+                FastConsole.PrintInfo("获取到了服务器名称: "+s.Name);
+            }
             return true;
         }
         
