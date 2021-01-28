@@ -14,7 +14,7 @@ namespace EasyCraftPlugin
 
     class PluginCall
     {
-        public static dynamic Call(string type, string data)
+        public static dynamic Call(string type, Dictionary<string, string> data)
         {
             return Settings.PluginCallback.GetMethod("Handle")
                 ?.Invoke(null, new object[]
@@ -35,7 +35,7 @@ namespace EasyCraftPlugin
         public string pluginid;
         public string key;
         public string type;
-        public string data;
+        public Dictionary<string, string> data;
     }
 
     class Server
@@ -56,8 +56,9 @@ namespace EasyCraftPlugin
 
         public Server(int sid)
         {
-            FastConsole.PrintInfo("Here");
-            dynamic s = PluginCall.Call("Server.GetBasicInfo", sid.ToString());
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["sid"] = sid.ToString();
+            dynamic s = PluginCall.Call("Server.GetBasicInfo", a);
             if (s is null)
             {
                 isnull = true;
@@ -74,38 +75,57 @@ namespace EasyCraftPlugin
             Port = s.Port;
             Running = s.Running;
         }
+
+        public bool SendCommand(string cmd)
+        {
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args["cmd"] = cmd;
+            return PluginCall.Call("Server.SendCommand",args);
+        }
     }
 
     public class FastConsole
     {
         public static void PrintInfo(string message)
         {
-            PluginCall.Call("FastConsole.PrintInfo", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintInfo", a);
         }
 
         public static void PrintTrash(string message)
         {
-            PluginCall.Call("FastConsole.PrintTrash", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintTrash", a);
         }
 
         public static void PrintSuccess(string message)
         {
-            PluginCall.Call("FastConsole.PrintSuccess", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintSuccess", a);
         }
 
         public static void PrintWarning(string message)
         {
-            PluginCall.Call("FastConsole.PrintWarning", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintWarning", a);
         }
 
         public static void PrintError(string message)
         {
-            PluginCall.Call("FastConsole.PrintError", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintError", a);
         }
 
         public static void PrintFatal(string message)
         {
-            PluginCall.Call("FastConsole.PrintFatal", message);
+            Dictionary<string, string> a = new Dictionary<string, string>();
+            a["message"] = message;
+            PluginCall.Call("FastConsole.PrintFatal", a);
         }
     }
 
