@@ -15,8 +15,8 @@ namespace EasyCraftPlugin
     {
         public static dynamic Call(string type, string data)
         {
-
-            return Settings.PluginCallback.GetMethod("Handle").Invoke(null, new object[] { new PluginCallData
+            return Settings.PluginCallback.GetMethod("Handle")
+                ?.Invoke(null, new object[] { (object)new PluginCallData
             {
                 pluginid = Plugin.id,
                 key = Settings.key,
@@ -64,7 +64,7 @@ namespace EasyCraftPlugin
         {
             PluginCall.Call("FastConsole.PrintFatal", message);
         }
-
+        
     }
 
     public struct PluginInfo
@@ -74,7 +74,8 @@ namespace EasyCraftPlugin
         public string author;
         public string link;
         public string description;
+        public string[] hooks;
+        public string[] auth;
     }
-
-
+    
 }
