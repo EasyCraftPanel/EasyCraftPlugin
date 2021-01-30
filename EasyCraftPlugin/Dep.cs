@@ -82,6 +82,13 @@ namespace EasyCraftPlugin
             args["cmd"] = cmd;
             return PluginCall.Call("Server.SendCommand",args);
         }
+        
+        public bool AddOutput(string output)
+        {
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args["output"] = output;
+            return PluginCall.Call("Server.AddOutput",args);
+        }
     }
 
     public class FastConsole
@@ -136,7 +143,7 @@ namespace EasyCraftPlugin
         public string author;
         public string link;
         public string description;
-        public string[] hooks;
+        public Dictionary<string,int> hooks;
         public string[] auth;
     }
 }
