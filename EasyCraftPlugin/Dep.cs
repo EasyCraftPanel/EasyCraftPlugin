@@ -145,5 +145,6 @@ namespace EasyCraftPlugin
         public string description;
         public Dictionary<string,int> hooks;
         public string[] auth;
+        public string version;
     }
 }
